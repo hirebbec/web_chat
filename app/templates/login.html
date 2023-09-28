@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Вход</title>
+</head>
+<body>
+    <h1>Вход на сайт</h1>
+    <form method="POST" action="{{ url_for('login') }}">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.username.label }}
+            {{ form.username(class="form-control") }}
+        </div>
+        <div>
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}
+        </div>
+        <div>
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration</title>
+</head>
+<body>
+    <h1>Registration</h1>
+    <form method="POST" action="{{ url_for('register') }}">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.username.label }}
+            {{ form.username(class="form-control") }}
+        </div>
+        <div>
+            {{ form.password.label }}
+            {{ form.password(class="form-control") }}
+        </div>
+        <div>
+            {{ form.confirm_password.label }}
+            {{ form.confirm_password(class="form-control") }}
+        </div>
+        <div>
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</body>
+</html>
