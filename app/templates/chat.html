@@ -1,20 +1,17 @@
+<!-- chat.html -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Чат</title>
 </head>
 <body>
-    <div class="header">
-        <p>Добро пожаловать, {{ username }}!</p>
-        <a href="{{ url_for('logout') }}">Выйти</a>
-    </div>
-
-    <div class="chat-content">
-        <!-- Здесь будет отображаться содержимое чата -->
-    </div>
-
-    <div class="chat-input">
-        <!-- Здесь будет форма для отправки сообщения в чат -->
-    </div>
+    <h1>Чат</h1>
+    <form method="POST" action="/send_message">
+        <input type="hidden" name="author" value="{{ current_user.username }}">
+        <input type="text" name="text" placeholder="Введите сообщение">
+        <button type="submit">Отправить</button>
+    </form>
+    <p>Вы вошли как: {{ current_user.username }}</p>
+    <a href="{{ url_for('logout') }}">Выйти</a>
 </body>
 </html>
