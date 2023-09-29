@@ -38,11 +38,13 @@ def login():
     if form.validate_on_submit():
         # Ваш код проверки логина и пароля
         user = User.query.filter_by(username=form.username.data).first()
-        if user and check_password_hash(user.password, form.password.data):
-            login_user(user)  # Авторизация пользователя
-            return redirect(url_for('index'))
-        else:
+        if user is None:
+            flash('Пользоваетель не найден', 'danger')
+        elif user.password != form.password.data:
             flash('Неправильный логин или пароль', 'danger')
+        else:
+            login_user(user)  # Авторизация пользователя
+            return redirect(url_for('chat'))
     return render_template('login.html', form=form)
 
 @app.route('/chat')
