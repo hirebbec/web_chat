@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Registration</title>
+    <title>Регистрация</title>
 </head>
 <body>
-    <h1>Registration</h1>
+    <h1>Регистрация</h1>
     <form method="POST" action="{{ url_for('register') }}">
         {{ form.hidden_tag() }}
         <div>
@@ -20,8 +20,17 @@
             {{ form.confirm_password(class="form-control") }}
         </div>
         <div>
-            {{ form.submit(class="btn btn-primary") }}
+            <input type="submit" value="sign up" class="btn btn-primary">
         </div>
     </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <ul class="flashes">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
 </body>
 </html>
