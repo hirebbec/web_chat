@@ -3,6 +3,7 @@ from app import app, db
 from app.forms import RegistrationForm, LoginForm
 from flask import render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_socketio import emit
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -51,19 +52,19 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-
 @app.route('/send_message', methods=['POST'])
 @login_required
 def send_message():
     text = request.form.get('text')
     author = request.form.get('author')
-    print(f"Received message from {author}: {text}")  # Проверка ваших данных
+
     if text and author:
         message = Message(text=text, author=author)
         db.session.add(message)
         db.session.commit()
 
     return redirect(url_for('chat'))
+
 @app.route('/chat')
 def chat():
     messages = Message.query.all()
