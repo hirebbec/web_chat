@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenChat</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #000000;
+            padding: 10px 0;
+            border-bottom: 1px solid #FFFFFF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .buttons {
+            padding-right: 20px;
+        }
+        .buttons a {
+            color: #FFFFFF;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .message {
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        footer {
+            background-color: #000000;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>OpenChat</h1>
+        <div class="buttons">
+            {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('login') }}">Sign in</a>
+            <a href="{{ url_for('register') }}">Sign up</a>
+            {% else %}
+            <a href="{{ url_for('logout') }}">Exit</a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="container">
+        {% if not current_user.is_authenticated %}
+        <div class="message">
+            <p>Вы не авторизованы.</p>
+        </div>
+        {% else %}
+        <div class="message">
+            <p>Вы авторизованы как {{ current_user.username }}.</p>
+        </div>
+        {% endif %}
+    </div>
+    <footer>
+        <p>&copy; 2023 OpenChat. Все права защищены.</p>
+    </footer>
+</body>
+</html>

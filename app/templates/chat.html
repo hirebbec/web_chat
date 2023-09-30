@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenChat</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>OpenChat</h1>
+        <div class="buttons">
+            <a href="{{ url_for('logout') }}">Exit</a>
+        </div>
+    </header>
+
+    <div id="chat-container">
+        <div id="chat-messages">
+            {% for message in messages %}
+            <div class="message-container">
+                <span class="message-author">{{ message.author }}:</span>
+                <span class="message-text">{{ message.text }}</span>
+                <span class="message-timestamp">{{ message.timestamp.strftime('%H:%M:%S') }}</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <form method="POST" action="/send_message">
+            <input type="hidden" name="author" value="{{ current_user.username }}">
+            <input type="text" name="text" placeholder="Введите сообщение">
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+    <footer>
+        <p class="footer">© 2023 OpenChat. Все права защищены.</p>
+    </footer>
+</body>
+</html>
