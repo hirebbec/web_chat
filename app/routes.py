@@ -1,9 +1,8 @@
 from app.models import User, Message
 from app import app, db
 from app.forms import RegistrationForm, LoginForm
-from flask import render_template, redirect, url_for, flash, request, jsonify
-from flask_login import login_user, current_user, logout_user, login_required
-from flask_socketio import emit
+from flask import render_template, redirect, url_for, flash, request
+from flask_login import login_user, logout_user, login_required
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -27,7 +26,7 @@ def register():
             return redirect(url_for('chat'))
         else:
             flash('Пользователь с таким именем уже существует', 'danger')
-    else:
+    elif form.password.data != form.confirm_password.data:
         flash('Пароли не совпадают', 'danger')
         return render_template('register.html', form=form)
     return render_template('register.html', form=form)

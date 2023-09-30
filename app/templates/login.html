@@ -1,32 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #000000;
+            padding: 10px 0;
+            border-bottom: 1px solid #FFFFFF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .buttons {
+            padding-right: 20px;
+        }
+        .buttons a {
+            color: #FFFFFF;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #000000;
+            color: #FFFFFF;
+            border: 1px solid #ccc;
+            padding: 20px 190px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #232922;
+        }
+        .flashes {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+        .flashes li {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #dc3545;
+            color: #FFFFFF;
+            border-radius: 5px;
+        }
+        footer {
+            background-color: #000000;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Вход на сайт</h1>
-    <form method="POST" action="{{ url_for('login') }}">
-        {{ form.hidden_tag() }}
-        <div>
-            {{ form.username.label }}
-            {{ form.username(class="form-control") }}
+    <header>
+        <h1>OpenChat</h1>
+        <div class="buttons">
+            <a href="{{ url_for('register') }}">Sign up</a>
         </div>
-        <div>
-            {{ form.password.label }}
-            {{ form.password(class="form-control") }}
-        </div>
-        <div>
-            {{ form.submit(class="btn btn-primary") }}
-        </div>
-    </form>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <ul class="flashes">
-        {% for category, message in messages %}
-        <li class="{{ category }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
+    </header>
+    <div class="container">
+        <h1>Вход на сайт</h1>
+        <form method="POST" action="{{ url_for('login') }}">
+            {{ form.hidden_tag() }}
+            <div>
+                {{ form.username.label }}
+                {{ form.username(class="form-control") }}
+            </div>
+            <div>
+                {{ form.password.label }}
+                {{ form.password(class="form-control") }}
+            </div>
+            <div>
+                {{ form.submit(class="btn") }}
+            </div>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+    <footer>
+        <p>&copy; 2023 OpenChat. Все права защищены.</p>
+    </footer>
 </body>
 </html>

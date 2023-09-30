@@ -1,0 +1,136 @@
+/* Стили для главного контейнера */
+body {
+    background-color: #1a1a1a;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Стили для шапки */
+header {
+    background-color: #000000;
+    padding: 10px 0;
+    border-bottom: 1px solid #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header h1 {
+    margin: 0;
+    padding-left: 20px;
+}
+
+/* Стили для блока с сообщениями */
+#chat-messages {
+    max-height: 600px;
+    overflow-y: auto;
+    border: 1px solid #fff;
+    padding: 10px;
+    margin: 20px 0;
+    border-radius: 10px;
+    background-color: #000000;
+}
+
+#chat-messages {
+    height: 500px;
+    overflow-y: auto; /* Включить вертикальный скролл при необходимости */
+}
+
+/* Стили для формы отправки сообщения */
+form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    background-color: black;
+    color: #FFFFFF;
+    font-size: 15px;
+    border-radius: 5px;
+    border-color: white;
+}
+
+.buttons {
+    padding-right: 25px;
+}
+.buttons a {
+    color: #FFFFFF;
+    text-decoration: none;
+    margin-left: 20px;
+}
+
+/* Стили для подвала */
+p {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+footer {
+    background-color: #000000;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.message-container {
+    width: 99%;
+    clear: both; /* Очистка обтекания */
+    background-color: #1a1a1a; /* Задний фон сообщения */
+    border-radius: 10px; /* Скругление углов */
+    padding: 5px; /* Отступ вокруг сообщения */
+    margin-bottom: 10px; /* Отступ снизу между сообщениями */
+}
+
+.message-author {
+    font-size: 20px; /* Размер шрифта для имени пользователя */
+    opacity: 0.7; /* Прозрачность имени пользователя */
+    font-weight: bold;
+}
+
+/* Стили для текста сообщения */
+.message-text {
+    display: inline-block; /* Отображение в строку */
+}
+
+/* Стили для времени сообщения */
+.message-timestamp {
+    font-size: 12px; /* Размер шрифта для времени сообщения */
+    opacity: 0.5; /* Прозрачность времени сообщения */
+    float: right; /* Размещение справа */
+}
+
+button {
+    background: transparent;
+    background-color: #505e4b;
+    padding: 7px;
+    margin:7px;
+    border-radius: 5px;
+    border-color: white;
+    font-size: 22px; /* Увеличиваем размер шрифта стрелки */
+    font-weight: bold; /* Делаем шрифт жирным */
+    vertical-align: middle; /* Поднимаем стрелку над строкой */
+    line-height: 1; /* Убираем лишний отступ между стрелкой и текстом */
+    cursor: pointer;
+}
+
+/* Пример стилей для изменения цвета кнопки при наведении */
+button:hover {
+    color: white; /* Измените цвет по вашему усмотрению */
+}
