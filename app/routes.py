@@ -1,5 +1,6 @@
 from app.models import User, Message
-from app import app, db
+from app import app, db, socketio
+from flask_socketio import emit, join_room
 from app.forms import RegistrationForm, LoginForm
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_user, logout_user, login_required
@@ -62,7 +63,28 @@ def send_message():
         db.session.add(message)
         db.session.commit()
 
+        # Отправляем сообщение через WebSocket
+        room = author  # Используем имя пользователя в качестве имени комнаты
+        join_room(room)
+        emit('new_message', {'text': text, 'author': author}, room=room)
+
     return redirect(url_for('chat'))
+
+@socketio.on('send_message')
+@login_required
+def send_message(data):
+    text = data['text']
+    author = data['author']
+
+    if text and author:
+        message = Message(text=text, author=author)
+        db.session.add(message)
+        db.session.commit()
+
+        # Отправляем сообщение через WebSocket
+        room = author  # Используем имя пользователя в качестве имени комнаты
+        join_room(room)
+        emit('new_message', {'text': text, 'author': author}, room=room)
 
 @app.route('/chat')
 def chat():
