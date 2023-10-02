@@ -17,6 +17,7 @@ socketio = SocketIO(app)
 login = LoginManager(app)
 login.login_view = 'login'
 
+
 from app.models import User
 @login.user_loader
 def load_user(user_id):

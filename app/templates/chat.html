@@ -23,11 +23,66 @@
             {% endfor %}
         </div>
 
-        <form method="POST" action="/send_message">
-            <input type="hidden" name="author" value="{{ current_user.username }}">
-            <input type="text" name="text" placeholder="Введите сообщение">
+        <form onsubmit="sendMessage(); return false;">
+            <input type="text" id="messageInput" name="text" placeholder="Введите сообщение" autocomplete="off">
             <button type="submit">Отправить</button>
         </form>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+        <script type="text/javascript">
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+            // Функция, которая будет прокручивать чат в самый низ
+            function scrollChatToBottom() {
+                var chatMessages = document.getElementById('chat-messages');
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            socket.on('connect', function() {
+                console.log('Connected to server');
+            });
+
+            socket.on('new_message', function(data) {
+                // Обновите чат, чтобы отобразить новое сообщение
+                var messageText = data.text;
+                var messageAuthor = data.author;
+
+                // Создайте новый элемент для сообщения и добавьте его в чат
+                var messageContainer = document.createElement('div');
+                messageContainer.classList.add('message-container');
+
+                var authorSpan = document.createElement('span');
+                authorSpan.classList.add('message-author');
+                authorSpan.textContent = messageAuthor + ': ';
+
+                var textSpan = document.createElement('span');
+                textSpan.classList.add('message-text');
+                textSpan.textContent = messageText;
+
+                var timestampSpan = document.createElement('span');
+                timestampSpan.classList.add('message-timestamp');
+                var now = new Date();
+                timestampSpan.textContent = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+
+                messageContainer.appendChild(authorSpan);
+                messageContainer.appendChild(textSpan);
+                messageContainer.appendChild(timestampSpan);
+
+                var chatMessages = document.getElementById('chat-messages');
+                chatMessages.appendChild(messageContainer);
+                scrollChatToBottom();
+            });
+
+            // Вызываем функцию прокрутки при загрузке страницы
+            window.onload = function() {
+                scrollChatToBottom();
+            };
+
+            function sendMessage() {
+                var message = document.getElementById('messageInput').value;
+                var author = "{{ current_user.username }}";  // Получите имя текущего пользователя
+                socket.emit('send_message', {'text': message, 'author': author});
+                document.getElementById('messageInput').value = '';
+            }
+        </script>
     </div>
     <footer>
         <p class="footer">© 2023 OpenChat. Все права защищены.</p>
